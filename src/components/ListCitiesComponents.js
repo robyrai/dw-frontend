@@ -9,7 +9,7 @@ class ListCitiesComponent extends React.Component {
         super(props);
         this.state = {
             cities: []
-        }
+        };
 
         this.addHoiday = this.updatePopulation.bind(this);
     }
@@ -35,9 +35,9 @@ class ListCitiesComponent extends React.Component {
                     <table className="table table-striped table-boardered">
                         <thead>
                             <tr>
-                                <td>Name</td>
-                                <td>State</td>
-                                <td>Population</td>
+                                <th>Name</th>
+                                <th>State</th>
+                                <th>Population</th>
                             </tr>
                         </thead>
                         <tbody>

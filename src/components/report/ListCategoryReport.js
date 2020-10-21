@@ -26,10 +26,10 @@ class ListCategoryReport extends React.Component {
                     <table className="table table-striped table-boardered">
                         <thead>
                             <tr>
-                                <td>Name</td>
-                                <td>Count of Products</td>
-                                <td>Unique Manufacturers</td>
-                                <td>Average Price</td>
+                                <th>Name</th>
+                                <th>Count of Products</th>
+                                <th>Unique Manufacturers</th>
+                                <th>Average Price</th>
                             </tr>
                         </thead>
                         <tbody>

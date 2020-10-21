@@ -5,16 +5,17 @@ export default class MgfMaxDisc extends Component {
         super(props);
         this.state = {
             maxDisc: 0
-        }
+        };
+        console.log(this.props);
     }
-    
-      componentDidMount() {
+
+    componentDidMount() {
         fetch("http://localhost:8080/mfgMaxDiscount/" + this.props.name)
-          .then(res => res.json())
-          .then(res => this.setState({ maxDisc: res }));
-      }
-    
-      render() {
-        return <div>{JSON.stringify(this.state.maxDisc)}</div>;
-      }
+            .then(res => res.json())
+            .then(res => this.setState({ maxDisc: res }));
+    }
+
+    render() {
+        return <div>MAX DISCOUNT = {JSON.stringify(this.state.maxDisc)}</div>;
+    }
 }

@@ -24,8 +24,8 @@ class StatisticsComponent extends React.Component {
                     <table className="table table-striped table-boardered">
                         <thead>
                             <tr>
-                                <td>Field</td>
-                                <td>Total</td>
+                                <th>Field</th>
+                                <th>Total</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -9,7 +9,7 @@ class ListHolidaysComponent extends React.Component {
         super(props);
         this.state = {
             holidays: []
-        }
+        };
 
         this.addHoiday = this.addHoliday.bind(this);
     }
@@ -35,8 +35,8 @@ class ListHolidaysComponent extends React.Component {
                     <table className="table table-striped table-boardered">
                         <thead>
                             <tr>
-                                <td>Date</td>
-                                <td>Name</td>
+                                <th>Date</th>
+                                <th>Name</th>
                             </tr>
                         </thead>
                         <tbody>

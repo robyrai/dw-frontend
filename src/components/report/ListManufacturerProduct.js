@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ReportService from '../../services/ReportService';
 
 
@@ -26,11 +26,11 @@ class ListManufacturerProduct extends React.Component {
                     <table className="table table-striped table-boardered">
                         <thead>
                             <tr>
-                                <td>Name</td>
-                                <td>Count of Products</td>
-                                <td>Average Price</td>
-                                <td>Max Price</td>
-                                <td>Min Price</td>
+                                <th>Name</th>
+                                <th>Count of Products</th>
+                                <th>Average Price</th>
+                                <th>Max Price</th>
+                                <th>Min Price</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -38,7 +38,13 @@ class ListManufacturerProduct extends React.Component {
                                 this.state.mgfProds.map(
                                     mfgProd =>
                                         <tr key={mfgProd.name}>
-                                            <td><NavLink to={`/mfg-detail/${mfgProd.name}`}>{mfgProd.name}</NavLink></td>
+                                            <Link to={{
+                                                pathname: `/mfg-detail/${mfgProd.name}`,
+                                                state: {
+                                                    mfg: mfgProd.name,
+                                                    mobj: mfgProd
+                                                }
+                                            }}>{mfgProd.name}</Link>
                                             <td>{mfgProd.count}</td>
                                             <td>{mfgProd.averagePrice}</td>
                                             <td>{mfgProd.maxPrice}</td>
