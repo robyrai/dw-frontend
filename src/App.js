@@ -14,6 +14,8 @@ import ManufacturerDetail from './components/report/ManufacturerDetail';
 import MembershipTrend from './components/report/MembershipTrend';
 import YearlyMembership from './components/report/YearlyMembership';
 import CityStoreMembership from './components/report/CityStoreMembership';
+import ListRevenueByPopulation from './components/report/ListRevenueByPopulation';
+// import ListHighestVolumeState from './components/report/ListHighestVolumeState';
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
             <Route path="/manufacturer-product" component={ListManufacturerProduct}></Route>
             <Route path="/mfg-detail/:name" component={ManufacturerDetail}></Route>
             <Route path="/category-report" component={ListCategoryReport}></Route>
+            {/* <Route path="/highest-volume-category" component={ListHighestVolumeState}></Route> */}
+            <Route path="/revenue-by-population" component={ListRevenueByPopulation}></Route>
             <Route path="/membership-trend" component={MembershipTrend}></Route>
             <Route path="/yearMembershipTrend?year=:year" component={YearlyMembership}></Route>
             <Route path="/cityStoreMembershipTrend?city=:city&state=:state&year=:year" component={CityStoreMembership}></Route>

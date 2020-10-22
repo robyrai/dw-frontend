@@ -10,7 +10,7 @@ export default class MembershipTrend extends Component {
     }
 
     componentDidMount() {
-        fetch("http://localhost:8080/membershipTrend/")
+        fetch("http://localhost:8080/membershipTrend")
             .then(res => res.json())
             .then(res => this.setState({ mtList: res }));
     }
@@ -33,11 +33,11 @@ export default class MembershipTrend extends Component {
                                 this.state.mtList.map(
                                     mt =>
                                         <tr key={mt.city}>
-                                        <td>
+                                            <td>
                                                 {mt.multiple ?
                                                     (
                                                         <Link to={{
-                                                            pathname:`/cityStoreMembershipTrend?city=${mt.city}&state=${mt.state}&year=${mt.year}`,
+                                                            pathname: `/cityStoreMembershipTrend?city=${mt.city}&state=${mt.state}&year=${mt.year}`,
                                                             state: {
                                                                 city: mt.city,
                                                                 state: mt.state,
