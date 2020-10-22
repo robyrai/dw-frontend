@@ -38,13 +38,15 @@ class ListManufacturerProduct extends React.Component {
                                 this.state.mgfProds.map(
                                     mfgProd =>
                                         <tr key={mfgProd.name}>
-                                            <Link to={{
-                                                pathname: `/mfg-detail/${mfgProd.name}`,
-                                                state: {
-                                                    mfg: mfgProd.name,
-                                                    mobj: mfgProd
-                                                }
-                                            }}>{mfgProd.name}</Link>
+                                            <td>
+                                                <Link to={{
+                                                    pathname: `/mfg-detail/${mfgProd.name}`,
+                                                    state: {
+                                                        mfg: mfgProd.name,
+                                                        mobj: mfgProd
+                                                    }
+                                                }}>{mfgProd.name}</Link>
+                                            </td>
                                             <td>{mfgProd.count}</td>
                                             <td>{mfgProd.averagePrice}</td>
                                             <td>{mfgProd.maxPrice}</td>
