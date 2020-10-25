@@ -10,6 +10,7 @@ import ListCitiesComponent from './components/ListCitiesComponents';
 import ListManufacturerProduct from './components/report/ListManufacturerProduct';
 import ListReports from './components/report/ListReports';
 import ListCategoryReport from './components/report/ListCategoryReport';
+import GpsPrediction from './components/report/GpsPrediction';
 import ManufacturerDetail from './components/report/ManufacturerDetail';
 import MembershipTrend from './components/report/MembershipTrend';
 import YearlyMembership from './components/report/YearlyMembership';
@@ -36,6 +37,7 @@ function App() {
             <Route path="/manufacturer-product" component={ListManufacturerProduct}></Route>
             <Route path="/mfg-detail/:name" component={ManufacturerDetail}></Route>
             <Route path="/category-report" component={ListCategoryReport}></Route>
+            <Route path="/gps-predicition" component={GpsPrediction}></Route>
             <Route path="/store-revenue-by-state-by-year" component={StoreRevenueByStateSearch}></Route>
             <Route path="/groundhog-day-report" component={GroundHogDayReport}></Route>
             <Route path="/highest-volume-category" component={ListHighestVolumeSearch}></Route>

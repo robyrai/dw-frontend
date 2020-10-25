@@ -12,7 +12,7 @@ export default class ListReports extends Component {
                     <ol className="list-group">
                         <li className="list-group-item"><Link to="/manufacturer-product">Manufacturer's Product Report</Link></li>
                         <li className="list-group-item"><Link to="/category-report">Category Report</Link></li>
-                        <li className="list-group-item"><Link to="/reports">Actual vs Predicted Revenue for GPS Units Report</Link></li>
+                        <li className="list-group-item"><Link to="/gps-predicition">Actual vs Predicted Revenue for GPS Units Report</Link></li>
                         <li className="list-group-item"><Link to="/store-revenue-by-state-by-year">Store Revenue by Year by State Report</Link></li>
                         <li className="list-group-item"><Link to="/groundhog-day-report">A/C on Groundhog Day Report</Link></li>
                         <li className="list-group-item"><Link to="/highest-volume-category">State with Highest Volume for Each Cateogry Report</Link></li>

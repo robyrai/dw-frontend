@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
-import StoreRevenueByYearByState from './StoreRevenueByYearByState';
 
 export default class StoreRevenueByStateSearch extends Component {
     constructor(props) {
         super(props);
         this.state = {
             queryState: '',
+            sentQueryState: '',
             states: [],
-            reset: false,
+            revenues: [],
             detailVisible: false
         };
     }
@@ -30,41 +30,63 @@ export default class StoreRevenueByStateSearch extends Component {
             });
     }
 
-    onModify = (event) => {
-        this.setState({ queryMonth: event.target.value });
-    }
-
     onStateChange = (event) => {
         this.setState({ queryState: event.target.value });
     }
 
     onSend = (event) => {
+        this.setState({ sentQueryState: this.state.queryState })
         this.setState({ detailVisible: true });
-        this.setState({ reset: true });
+        this.onResubmit();
     }
 
-    onReset = (event) => {
-        this.setState({ detailVisible: false });
-        this.setState({ reset: false });
-        this.setState({ queryState: '' });
-    }
-
-    cancel() {
-        this.props.history.push('/reports');
+    onResubmit() {
+        this.setState( {revenues: []} );
+        console.log("fetching state: " + this.state.sentQueryState);
+        fetch("http://localhost:8080/storeRevenueByYearByStore?stateName=" + this.state.sentQueryState)
+            .then(res => res.json())
+            .then(res => this.setState({ revenues: res }));
+        console.log("this is the values: " + this.state.revenues)
     }
 
     render() {
         return (
             <div>
                 <select onChange={this.onStateChange}>
-                    {this.state.states.map((state) => <option key={state.value} value={state.value}>{state.display}</option>)}
+                    {this.state.states.map((state) => <option key={state.value} value={state.value} >{state.display}</option>)}
                 </select>
-                {this.state.reset ?
-                    <button disabled={ this.state.queryState < 1 } className="btn btn-error" onClick={this.onReset}>Reset</button> :
-                    <button disabled={ this.state.queryState < 1 } className="btn btn-success" onClick={this.onSend} onChange={this.onModify}>Search</button>
-                }
+                <button disabled={this.state.sentQueryState < 1} className="btn btn-success" onClick={this.onSend} >Search</button>
                 { this.state.detailVisible ?
-                    <StoreRevenueByYearByState queryState={this.state.queryState} />
+                    <div>
+                        <h2 className="text-center">
+                            {this.state.queryState} State's Stores' Revenue by Year by Store Report
+                        </h2>
+                        <div className="row">
+                            <table className="table table-striped table-boardered">
+                                <thead>
+                                    <tr>
+                                        <th>Store ID</th>
+                                        <th>Store Address</th>
+                                        <th>City</th>
+                                        <th>Sales Year</th>
+                                        <th>Total Revenue</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {this.state.revenues.map(
+                                        revenue =>
+                                            <tr key={revenue.storeId}>
+                                                <td>{revenue.storeId}</td>
+                                                <td>{revenue.address}</td>
+                                                <td>{revenue.city}</td>
+                                                <td>{revenue.year}</td>
+                                                <td>{revenue.revenue}</td>
+                                            </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     : <h3>select state</h3>
                 }
                 <div className="text-center">

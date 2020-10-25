@@ -4,14 +4,14 @@ export default class ListHighestVolumeCategory extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            queryYear: this.props.queryYear,
-            queryMonth: this.props.queryMonth,
+            // queryYear: this.props.queryYear,
+            // queryMonth: this.props.queryMonth,
             hvdata: []
         };
     }
 
     componentDidMount () {
-        fetch("http://localhost:8080/revenueByVolumeCategory?month=" + this.state.queryMonth + "&year=" + this.state.queryYear)
+        fetch("http://localhost:8080/revenueByVolumeCategory?month=" + this.props.queryMonth + "&year=" + this.props.queryYear)
             .then(res => res.json())
             .then(res => this.setState({ hvdata: res }))
             .catch(error => {

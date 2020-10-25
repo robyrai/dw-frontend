@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import ListHighestVolumeCategory from './ListHighestVolumeCategory';
 
 export default class ListHighestVolumeSearch extends Component {
     years = []
@@ -8,12 +7,14 @@ export default class ListHighestVolumeSearch extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            propQueryMonth: '',
+            propQueryYear: '',
             queryYear: '',
             queryMonth: '',
             yrs: [],
             mts: [],
-            reset: false,
-            detailVisible: false
+            detailVisible: false,
+            hvdata: []
         };
     }
 
@@ -52,11 +53,16 @@ export default class ListHighestVolumeSearch extends Component {
             });
     }
 
-    onMonthChange = (event) => {
-        this.setState({ queryMonth: event.target.value });
+    moreMount() {
+        fetch("http://localhost:8080/revenueByVolumeCategory?month=" + this.state.queryMonth + "&year=" + this.state.queryYear)
+            .then(res => res.json())
+            .then(res => this.setState({ hvdata: res }))
+            .catch(error => {
+                console.log(error);
+            });
     }
 
-    onModify = (event) => {
+    onMonthChange = (event) => {
         this.setState({ queryMonth: event.target.value });
     }
 
@@ -65,19 +71,10 @@ export default class ListHighestVolumeSearch extends Component {
     }
 
     onSend = (event) => {
+        this.setState({ propQueryMonth: this.state.queryMonth });
+        this.setState({ propQueryYear: this.state.queryYear });
         this.setState({ detailVisible: true });
-        this.setState({ reset: true });
-    }
-
-    onReset = (event) => {
-        this.setState({ detailVisible: false });
-        this.setState({ reset: false });
-        this.setState({ queryYear: '' });
-        this.setState({ queryMonth: '' });
-    }
-
-    cancel() {
-        this.props.history.push('/reports');
+        this.moreMount();
     }
 
     render() {
@@ -89,14 +86,41 @@ export default class ListHighestVolumeSearch extends Component {
                 <select onChange={this.onMonthChange}>
                     {this.state.mts.map((mt) => <option key={mt.value} value={mt.value}>{mt.display}</option>)}
                 </select>
-                {this.state.reset ?
-                    <button disabled={this.state.queryMonth < 1 || this.state.queryYear < 1} className="btn btn-error" onClick={this.onReset}>Reset</button> :
-                    <button disabled={this.state.queryMonth < 1 || this.state.queryYear < 1} className="btn btn-success" onClick={this.onSend} onChange={this.onModify}>Search</button>
-                }
+                <button disabled={this.state.queryMonth < 1 || this.state.queryYear < 1} className="btn btn-success" onClick={this.onSend} > Search</button>
                 { this.state.detailVisible ?
-                    <ListHighestVolumeCategory queryMonth={this.state.queryMonth} queryYear={this.state.queryYear} />
+                    <div>
+                        {this.state.hvdata.length > 0 ?
+                            <div>
+                                <h2 className="text-center">Details from inside</h2>
+                                <div className="row">
+                                    <table className="table table-striped table-boardered">
+                                        <thead>
+                                            <tr>
+                                                <th>City</th>
+                                                <th>State</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                this.state.hvdata.map(
+                                                    d =>
+                                                        <tr key={d.cityName}>
+                                                            <td>{d.cityName}</td>
+                                                            <td>{d.stateName}</td>
+                                                            <td>{d.total}</td>
+                                                        </tr>
+                                                )
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div> : <div> No transaction during {this.state.queryMonth}/{this.state.queryYear} </div>
+                        }
+                    </div>
                     : <h3>select month year</h3>
                 }
+                {console.log(this.state.propQueryMonth)}
             </div>
         )
     }
